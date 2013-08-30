@@ -7,7 +7,7 @@
 </head>
 <body>
 	<!-- 使用 overflow:auto 在內容超過容器時顯示卷軸 -->
-	<div id="dragpanel" style="width:100%;height:600px;display:block;background-color:silver;overflow:auto;">
+	<div id="dragpanel" style="width:100%;height:600px;display:block;background-color:silver;overflow:hidden;">
 		<div style="width:2000px;display:block;background-color:lightgreen;height:40px;"></div>
 	</div>
 	<script>
@@ -35,10 +35,10 @@
 				if(coffset && loffset){
 					var dx;
 					if(coffset[0]-loffset[0]>0){
-						dx=15;
+						dx=-15;
 					}
 					else if(coffset[0]-loffset[0]<0){
-						dx=-15;
+						dx=15;
 					}
 					else if(coffset[0]-loffset[0]==0){
 						dx=0;
