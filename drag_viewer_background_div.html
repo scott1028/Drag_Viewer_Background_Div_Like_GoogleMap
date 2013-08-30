@@ -15,6 +15,10 @@
 
 		var h1,h2,h3,coffset,loffset;
 		t.bind('mousedown',h1=function(e){
+
+			// console.log(e.target);
+			// console.log(e.currentTarget);
+
 			t.bind('mousemove',h2=function(ee){
 				// 計算當前偏差值
 				var offset=[ee.offsetX-e.offsetX,ee.offsetY-e.offsetY];
@@ -44,7 +48,9 @@
 						dx=0;
 					}
 
-					// 設定卷軸位置
+					// 設定卷軸位置, currentTarget 代表設定監聽的那一個節點！
+					// 感覺上還是設定為 target 比較流暢
+					// $(ee.currentTarget).scrollLeft($(ee.currentTarget).scrollLeft()+dx);
 					$(ee.target).scrollLeft($(ee.target).scrollLeft()+dx);
 				};
 			});
