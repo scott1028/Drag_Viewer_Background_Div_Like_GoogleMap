@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+	<meta charset="UTF-8">
+	<title>類似 Google Map 的拖曳底圖技術</title>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<!-- 使用 overflow:auto 在內容超過容器時顯示卷軸 -->
+	<div id="dragpanel" style="width:100%;height:600px;display:block;background-color:silver;overflow:auto;">
+		<div style="width:2000px;display:block;background-color:lightgreen;height:40px;"></div>
+	</div>
+	<script>
+		var t=$('#dragpanel');
+
+		var h1,h2,h3,coffset,loffset;
+		t.bind('mousedown',h1=function(e){
+			t.bind('mousemove',h2=function(ee){
+				// 計算當前偏差值
+				var offset=[ee.offsetX-e.offsetX,ee.offsetY-e.offsetY];
+
+				// 偏差值
+				if(coffset){
+					loffset=coffset;
+					coffset=offset;	
+				}
+				else{
+					coffset=offset;
+				};
+
+				// 起點
+				var o=$(ee.target).scrollLeft();
+
+				//向量
+				if(coffset && loffset){
+					var dx;
+					if(coffset[0]-loffset[0]>0){
+						dx=15;
+					}
+					else if(coffset[0]-loffset[0]<0){
+						dx=-15;
+					}
+					else if(coffset[0]-loffset[0]==0){
+						dx=0;
+					}
+
+					// 設定卷軸位置
+					$(ee.target).scrollLeft($(ee.target).scrollLeft()+dx);
+				};
+			});
+		});
+		$(document).bind('mouseup',h3=function(e){
+			// 解除全部的 handle Function
+			t.unbind('mousemove');
+		});
+
+		// demo
+		var at=$('div#dragpanel div');
+		for(var i=0;i<100;i++){
+			at.append(i);
+		};
+	</script>
+</body>
+</html>
