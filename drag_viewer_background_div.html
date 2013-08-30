@@ -7,18 +7,22 @@
 </head>
 <body>
 	<!-- 使用 overflow:auto 在內容超過容器時顯示卷軸,測試可以採用 overflow:auto; -->
-	<div id="dragpanel" style="width:100%;height:600px;display:block;background-color:silver;overflow:hidden;">
+	<div id="dragpanel" style="width:100%;height:600px;display:block;background-color:silver;overflow:hidden;" onselectstart='return false;'>
 		<div style="width:2000px;display:block;background-color:lightgreen;height:40px;"></div>
 	</div>
 	<script>
 		var t=$('#dragpanel');
 
 		var h1,h2,h3,coffset,loffset;
+
+		// 改變鼠標樣式
+		t.hover(function(e){
+			document.body.style.cursor='pointer';
+		},function(e){
+			document.body.style.cursor='';
+		});
+
 		t.bind('mousedown',h1=function(e){
-
-			// console.log(e.target);
-			// console.log(e.currentTarget);
-
 			t.bind('mousemove',h2=function(ee){
 				// 計算當前偏差值
 				var offset=[ee.offsetX-e.offsetX,ee.offsetY-e.offsetY];
